@@ -1,0 +1,67 @@
+<?php
+$title = 'Magic Word';
+include('./views/page.header.html');
+
+?>
+<div id="main-container">
+	<div id="left-block">
+		<div id="wotd-container"  class="block-container">
+			<div id="wotd-title"  class="block-title"><?php echo$lang['home_wotd']; ?></div>
+			<?php
+				include('controllers/wordbox.wordofday.class.php');
+				$controller = new wordbox_wordofday();
+				$controller->set_mode($mode);
+				$html = $controller->process();
+			?>
+		</div>
+	</div>
+	<div id="center-block">
+		<h1><?php echo $lang['home_welcome']." "; ?><?php echo htmlspecialchars($GLOBALS['user']->username); ?>!</h1><br/>
+		<h2><?php echo $lang['learning'];?></h2>
+		<ul id="modes" class="select-mode">
+			<li>
+				<a href="?mode=game.launch.practice" title="game_launch_practice"><?php echo $lang['home_play_solo'];?></a>
+			</li>
+		</ul>
+		<div id="pending-games">
+			<h3 class="block-title"><?php echo $lang['pending']; ?></h3>
+			<?php
+				include('controllers/games.pending.class.php');
+				$controller = new games_pending();
+				$controller->set_mode($mode);
+				$html = $controller->process();
+			?>
+		</div>
+		<div id="battle-select">
+			<h3 class="block-title"><?php echo $lang['home_play_duo']; ?></h3>
+			<?php
+				include('controllers/invitations.pending.class.php');
+				$controller = new invitations_pending();
+				$controller->set_mode($mode);
+				$html = $controller->process();
+			?>
+		</div>
+	</div>
+	<div id="right-block">
+		<div id="online-members-container" class="block-container">
+			<div id="online-members-title" class="block-title"><?php echo $lang['home_connected_members'];?></div>
+			<?php
+				include('controllers/members.online.class.php');
+				$controller = new members_online();
+				$controller->set_mode($mode);
+				$html = $controller->process();
+			?>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+function getOnlineMembers(){
+	var li = $('<a class="select-members" />');
+	li.html('membre');
+	li.appendTo('li#battle-select');
+}
+</script>
+<?php
+include('./views/page.footer.html');
+?>

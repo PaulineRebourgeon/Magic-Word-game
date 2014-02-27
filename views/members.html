@@ -1,0 +1,39 @@
+<?php
+include('./views/page.header.html');
+$title = $lang['menu_memberlist'];
+?>
+<div id="main-container">
+	<div id="members-container" class="page-container">
+		<table>
+			<caption><?php echo $title; ?></caption>
+			<colgroup>
+				<col class="username" />
+				<col class="useremail" />
+				<col class="useronline" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th><?php echo $lang['user_username']; ?></th>
+					<th><?php echo $lang['users_email'];?></th>
+					<th><?php echo $lang['online']; ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if( $data ){ foreach ( $data as $row ){ ?>
+				<tr>
+					<td><?php echo $row['username']; ?></td>
+					<td><?php echo $row['useremail']; ?></td>
+					<td><?php if ( $row['_is_online'] ){ ?>&bull;<?php } else { ?>&nbsp;<?php } ?></td>
+				</tr>
+				<?php }} ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+<?php
+include('./views/page.footer.html');
+?>
+
+<?php
+include('./views/page.footer.html');
+?>

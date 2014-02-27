@@ -1,0 +1,65 @@
+<?php
+include('./languages/language.php');
+ if ( !$pendings ){ ?>
+<div id="gamependings-container">
+	<p>
+	<?php echo $lang['pending_game']; ?><br />
+	</p>
+</div>
+<?php } else { ?>
+<div id="gamependings-container">
+	<h4><?php echo $lang['pending'];?></h4>
+	<ul>
+		<?php foreach ( $pendings as $gametype => $langs ){ if ( $langs ){ foreach ( $langs as $lang => $gameids ){ if ( $gameids ){ foreach ( $gameids as $gameid ){ ?>
+		<li class="resumegame" onclick="resumegame(<?php echo intval($gameid); ?>, <?php echo intval($gametype); ?>); return false;">
+			<div class="name">
+				<div class="action">&#8258;</div>
+				<div>
+					<?php
+						switch ( $gametype )
+						{
+							case GAMETYPE_BATTLE:
+								if ( $user->get_lang() == 'en' )
+								{
+									echo 'Battle';
+								}
+								if ( $user->get_lang() == 'it' )
+								{
+									echo 'Battaglia';
+								}
+							break;
+							case GAMETYPE_PRACTICE_FULL:
+								if ( $user->get_lang() == 'en' )
+								{
+									echo 'Full game';
+								}
+								if ( $user->get_lang() == 'it' )
+								{
+									echo 'Gioco completo';
+								}
+							break;
+						}
+
+						//echo ' ' . $lang;
+
+						if ( $opponents && isset($opponents[$gameid]) )
+						{
+							foreach ( $opponents[$gameid] as $userid => $username )
+							{
+								echo ' :: ' . $username;
+							}
+						}
+					?>
+				</div>
+				<div class="clearboth">&nbsp;</div>
+			</div>
+		</li>
+		<?php }}}}} ?>
+	</ul>
+</div>
+<script type="text/javascript">
+	var resumegame = function (gameid, gametype) {
+		$(location).attr('href', '?mode=game.result&gameid=' + gameid);
+	};
+</script>
+<?php } ?>

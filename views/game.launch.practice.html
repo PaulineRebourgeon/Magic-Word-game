@@ -1,0 +1,26 @@
+<?php
+$title = 'Magic Word';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+	<div id="practice-mode">
+		<h2><?php echo $lang['select_mode']; ?></h2>
+		<ul id="select-practice-mode" class="select-mode">
+			<li>
+				<a href="?mode=game.launch.practice.full" title="full_game"><?php echo $lang['game_full']; ?></a>
+			</li>
+			<li>
+				<a href="?mode=game.launch.practice.allwords" title="all_words"><?php echo $lang['all_words']; ?></a>
+			</li>
+			<li>
+				<a href="?mode=game.launch.practice.longest" title="longest_word"><?php echo $lang['longest_word']; ?></a>
+			</li>
+			<li>
+				<a href="?mode=game.launch.practice.constraints" title="constraints"><?php echo $lang['play_constraints']; ?></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<?php
+include('./views/page.footer.html');
+?>

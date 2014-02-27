@@ -1,0 +1,42 @@
+<?php
+$title = 'se loguer';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+		<script type="text/javascript">
+		//<!--
+		function change_onglet(name){
+			document.getElementById('onglet_'+anc_onglet).className = 'onglet_0 onglet';
+			document.getElementById('onglet_'+name).className = 'onglet_1 onglet';
+			document.getElementById('contenu_onglet_'+anc_onglet).style.display = 'none';
+			document.getElementById('contenu_onglet_'+name).style.display = 'block';
+			anc_onglet = name;
+		}
+		//-->
+		</script>
+		<div id="infos-container">
+			<div id="onglets">
+				<ul>
+					<li class="onglet_0 onglet" id="onglet_rules" onclick="javascript:change_onglet('rules');"><?php echo $lang['rules']; ?></li>
+					<li class="onglet_0 onglet" id="onglet_about" onclick="javascript:change_onglet('about');"><?php echo $lang['about']; ?></li>
+				</ul>
+			</div>
+			<div id="contenu-onglets">
+				<div class="contenu_onglet" id="contenu_onglet_rules">
+					<?php include('./views/rules.' . $GLOBALS['user']->userlang . '.html');?>
+				</div>
+				<div class="contenu_onglet" id="contenu_onglet_about">
+					<?php include('./views/about.' . $GLOBALS['user']->userlang . '.html');?>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		//<!--
+		var anc_onglet = 'rules';
+		change_onglet(anc_onglet);
+		//-->
+		</script>
+</div>
+<?php
+include('./views/page.footer.html');
+?>

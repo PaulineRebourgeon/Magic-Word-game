@@ -1,0 +1,43 @@
+<?php
+include('./languages/language.php');
+//header('Content-Type: text/html; charset=UTF-8');
+?><!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $title; ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" type="text/css" href="./style/default.css/smoothness/jquery-ui-1.10.4.custom.css">
+		<link rel="stylesheet" href="./style/default.js/qtip/jquery.qtip.css">
+        <link rel="stylesheet" type="text/css" href="./style/default.css/default.css">
+        <link href="http://fonts.googleapis.com/css?family=Chicle" rel="stylesheet" type="text/css">
+		<link rel="icon" href="./style/default.css/imgs/favicon.ico" />
+
+		<script type="text/javascript" src="./style/default.js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="./style/default.js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script type="text/javascript" src="./style/default.js/countdown/jquery.countdown.js"></script>
+		<script type="text/javascript" src="./style/default.js/qtip/jquery.qtip.js "></script>
+    </head>
+    <body>
+        <div id="header-logo"></div>
+		<?php
+		$mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
+		$modes = $mode ? explode('.', $mode) : array();
+		$modes = array_slice($modes, 0, 2);
+		$wmode = implode('.', $modes);
+		if ( ($GLOBALS['mode'] != 'game.launch.practice') && (($GLOBALS['mode'] == 'game.result') || ($GLOBALS['wmode'] == 'game.launch') || ($GLOBALS['mode'] == 'game.definitions')) ) { ?>
+		<?php } else if ( $GLOBALS['userlogged'] ) { ?>
+		<div id="menu_home">
+			<a href="?mode=logout" title="logout" class="menu-img"><img src="style/default.css/imgs/logout.png" alt="Logout"/></a>
+			<a href="?mode=infos" title="info" class="menu-img"><img src="style/default.css/imgs/infos.png" alt="Information"/></a>
+			<a href="?mode=profile" title="<?php echo htmlspecialchars($GLOBALS['user']->username); ?>" class="menu-img"><img src="style/default.css/imgs/profile.png" alt="Profile"/></a>
+			<a href="?mode=members" title="members"><?php echo $lang['menu_memberlist']; ?></a>
+			<a href="?mode=wordbox.display" title="wordbox"><?php echo $lang['mywordbox']; ?></a>
+			<a href="?mode=" title="home"><?php echo $lang['homepage']; ?></a>
+        </div>
+		<?php } else if ( ($GLOBALS['mode'] != 'register') && ($GLOBALS['mode'] != 'game.launch') ) { ?>
+        <div id="menu_register">
+			<a href="?mode=register" title="register">Register</a>
+		</div>
+		<?php } ?>

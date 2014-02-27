@@ -1,0 +1,63 @@
+<?php
+$title = 'Profile';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+	<form id="edit" method="post" action="./">
+		<?php if ( $this->errors ) { ?>
+		<fieldset>
+			<legend><?php $lang['errors']; ?></legend>
+			<ul>
+				<?php foreach ( $this->errors as $error ) { ?>
+				<li>
+					<?php echo $error; ?>
+				</li>
+				<?php } ?>
+			</ul>
+		</fieldset>
+		<?php } ?>
+		<fieldset>
+			<legend><?php $lang['menu_profile']; ?></legend>
+			<dl>
+				<dt><label for="username" ><?php echo $lang['user_username'];?></label></dt>
+				<dd><input type="text" id="username" name="username" required="required" value="<?php echo htmlspecialchars($this->username); ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="useremail"><?php echo $lang['users_email']; ?></label></dt>
+				<dd><input type="email" id="useremail" name="useremail" required="required" value="<?php echo htmlspecialchars($this->useremail); ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="userpasswd"><?php echo $lang['users_passwd'];?></label></dt>
+				<dd><input type="password" id="userpasswd" name="userpasswd" value="" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="password_confirm"><?php echo $lang['password_confirm'];?></label></dt>
+				<dd><input type="password" id="password_confirm" name="password_confirm" value="<?php echo $lang['password_confirm'];?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="userlang" ><?php echo $lang['user_userlang'];?></label></dt>
+				<dd>
+					<select id="userlang" name="userlang" >
+						<option value =""></option>
+						<option value ="it" <?php if ($this->userlang == 'it') { echo 'selected'; } ?>>Italian</option>
+						<option value ="en" <?php if ($this->userlang == 'en') { echo 'selected'; } ?>>English</option>
+					</select>
+				</dd>
+			</dl>
+			<div id="form-cmd">
+				<input type="submit" id="submit_form" name="submit_form" value="<?php echo $lang['cmd_submit']; ?>" />
+				<input type="button" id="cancel_form" name="cancel_form"  value="Cancel" onclick="cancel();" />
+				<input type="hidden" name="mode" value="<?php echo $this->mode; ?>"/>
+				<input type="hidden" name="userid" value="<?php echo $this->userid; ?>"/>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<script type=text/javascript>
+	function cancel(){
+		$(location).attr('href', '?mode=');
+	}
+</script>
+<?php
+include('./views/page.footer.html');
+?>

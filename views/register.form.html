@@ -1,0 +1,62 @@
+<?php
+$title = 's\'inscrire';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+	<form id="register" method="post" action="./">
+		<?php if ( $this->errors ) { ?>
+		<fieldset class="errors">
+			<legend>Erreurs</legend>
+			<ul>
+				<?php foreach ( $this->errors as $error ) { ?>
+				<li>
+					<?php echo $error; ?>
+				</li>
+				<?php } ?>
+			</ul>
+		</fieldset>
+		<?php } ?>
+		<fieldset>
+			<legend>Register</legend>
+			<dl>
+				<dt><label for="username">Username</label></dt>
+				<dd><input type="text" id="username" name="username" required="required" value="<?php echo htmlspecialchars($this->username); ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="useremail">Email</label></dt>
+				<dd><input type="email" id="useremail" name="useremail" required="required" value="<?php echo htmlspecialchars($this->useremail); ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="userpasswd">Password</label></dt>
+				<dd><input type="password" id="userpasswd" name="userpasswd" required="required" value="" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="password_confirm">Confirmez votre password</label></dt>
+				<dd><input type="password" id="password_confirm" name="password_confirm" required="required" value="" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="userlang">Choose a language</label></dt>
+				<dd>
+					<select id="userlang" name="userlang" >
+						<option value =""></option>
+						<option value ="it">Italian</option>
+						<option value ="en">English</option>
+					</select>
+				</dd>
+			</dl>
+			<div id="form-cmd">
+				<input type="submit" id="submit_form" name="submit_form" value="Valider" class="submit_buttons" />
+				<input type="button" id="cancel_form" name="cancel_form"  value="Cancel" onclick="cancel();" />
+				<input type="hidden" name="mode" value="<?php echo $this->mode; ?>"/>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<script type=text/javascript>
+	function cancel(){
+		$(location).attr('href', '?mode=login');
+	}
+</script>
+<?php
+include('./views/page.footer.html');
+?>

@@ -1,0 +1,48 @@
+<?php
+include('./languages/language.php');
+ if ( !$awaitings && !$sents ){ ?>
+<div id="pendings-container">
+	<p>
+	<?php echo $lang['pending_battle']; ?><br />
+	<?php echo $lang['choose_opponent']; ?><br /><?php echo $lang['start_game']; ?>
+	</p>
+</div>
+<?php } else { ?>
+<div id="pendings-container">
+	<?php if ( $awaitings ){ ?>
+	<h4><?php echo $lang['invitations_received']; ?></h4>
+	<ul>
+		<?php foreach ( $awaitings as $row ){ ?>
+		<a class="startgame" style="float:left; margin-right:3px;" href="?mode=invitations.pending&delete=1&deleteid=<?php echo $row['invitid']; ?>">X</a>
+		<li class="startgame" onclick="startgame(<?php echo intval($row['invitid']); ?>); return false;">
+			<p class="name">
+				<div class="action">&#8987;</div>
+				<?php echo $row['username']; ?>
+				<div class="clearboth">&nbsp;</div>
+			</p>
+		</li>
+		<?php } ?>
+	</ul>
+	<?php } ?>
+
+	<?php if ( $sents ){ ?>
+	<h4><?php echo $lang['invitations_sent']; ?></h4>
+	<ul>
+		<?php foreach ( $sents as $row ){ ?>
+		<li<?php if ( $row['gameid'] ){?> class="startgame" onclick="startgame(<?php echo intval($row['invitid']); ?>); return false;"<?php } ?>>
+			<p class="name">
+				<div class="action"><?php if ( $row['gameid'] ){?>&#10004; <?php } else { ?>&#8987;<?php } ?></div>
+				<?php echo $row['username']; ?>
+				<div class="clearboth">&nbsp;</div>
+			</p>
+		</li>
+		<?php } ?>
+	</ul>
+	<?php } ?>
+</div>
+<script type="text/javascript">
+	var startgame = function (invitid) {
+		$(location).attr('href', '?mode=game.launch.battle&invitid=' + invitid);
+	};
+</script>
+<?php } ?>

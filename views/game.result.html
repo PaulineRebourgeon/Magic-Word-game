@@ -1,0 +1,284 @@
+<?php
+$title = 'Results';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+
+	<div id="result-container">
+
+		<div id="command">
+			<?php if ( $this->last_grid ) { ?>
+				<?php if ( $this->can_end ) { ?>
+				<a href="?mode=home"><?php echo $lang['terminate']; ?></a>
+				<div id="result-winner">
+					<p id="result-win"><?php echo $lang['result_win']; ?></p>
+					<p id="result-fail"><?php echo $lang['result_fail']; ?></p>
+					<p id="result-exaequo"><?php echo $lang['result_exaequo']; ?></p>
+				</div>
+				<?php } else { ?>
+				<a href="./"><?php echo $lang['pause_game'];?></a>
+				<p><?php echo $lang['refresh_game'];?></p>
+				<?php } ?>
+			<?php } else { ?>
+			<?php if ( $this->can_continue ) { ?>
+			<a href="<?php echo $this->game->gametype == GAMETYPE_BATTLE ? '?mode=game.launch.battle&gameid=' . intval($this->gameid) : '?mode=game.launch.practice.full&gameid=' . intval($this->gameid); ?>"><?php echo $lang['continue'];?></a>
+			<?php } ?>
+			<a href="./"><?php echo $lang['pause_game'];?></a>
+			<?php if ( !$this->can_continue ) { ?>
+			<p><?php echo $lang['refresh_game'];?></p>
+			<?php } ?>
+			<?php } ?>
+		</div>
+		<div id="result-instruction"><?php echo $lang['result-instruction']; ?></div>
+		<div id="result-sum-container">
+			<?php $useridx = 0; foreach ( $this->game->userids as $userid => $username ) {$useridx++; ?>
+			<div class="result-user<?php echo (count($this->game->userids) > 1 ? ' half' : '') . ($useridx % 2 ? ' left' : ' right'); ?>">
+				<h2><?php echo $username; ?></h2>
+				<?php if ( $this->gridtypes ) { ?>
+				<ul>
+					<?php $idx = 0; $total = 0; $count_gridtypes = count($this->gridtypes); foreach ( $this->gridtypes as $gridtype ) { $idx++; ?>
+					<li>
+						<div>
+							<div class="solo-total" style="float: right"><?php
+							echo isset($this->users_points[$gridtype]) && isset($this->users_points[$gridtype][$userid]) ? intval($this->users_points[$gridtype][$userid]['points']) : 0; echo $lang['points']; ?></div>
+							<h4><?php echo $count_gridtypes == 1 ? $lang['result'] : $lang['round'] . ' ' . $idx ?> :</h4>
+							<div class="clearboth">&nbsp;</div>
+							<?php $total += isset($this->users_points[$gridtype]) && isset($this->users_points[$gridtype][$userid]) ? intval($this->users_points[$gridtype][$userid]['points']) : 0; ?>
+						</div>
+					</li>
+					<?php } ?>
+					<?php if ( $count_gridtypes > 1 ) { ?>
+					<li>
+						<div>
+							<div style="float: right" class='battle-total'><?php echo intval($total); ?></div>
+							<strong><?php echo $lang['total'];?></strong>
+							<div class="clearboth">&nbsp;</div>
+						</div>
+					</li>
+					<?php } ?>
+				</ul>
+				<?php } ?>
+			</div>
+			<?php } ?>
+			<div class="clearboth">&nbsp;</div>
+		</div>
+
+		<div id="result-grid-container">
+			<?php $useridx = 0; foreach ( $this->game->userids as $userid => $username ) {$useridx++; ?>
+			<div class="result-user<?php echo (count($this->game->userids) > 1 ? ' half' : '') . ($useridx % 2 ? ' left' : ' right'); ?>">
+				<div>
+					<div style="float: right"><?php echo isset($this->users_wordscount[$userid]) ? intval($this->users_wordscount[$userid]) : 0; ?>&nbsp;/&nbsp;<?php echo count($this->grid_words); echo $lang['words']; ?></div>
+					<h4><?php echo $lang['num_words_found']; ?> :</h4>
+				</div>
+			</div>
+			<?php } ?>
+			<div class="clearboth">&nbsp;</div>
+		</div>
+
+		<div id="result-userswords-container">
+			<?php $useridx = 0; foreach ( $this->game->userids as $userid => $username ) {$useridx++; ?>
+			<div class="result-user<?php echo (count($this->game->userids) > 1 ? ' half' : '') . ($useridx % 2 ? ' left' : ' right'); ?>">
+				<h4><?php echo $lang['game_found_words'];?> :</h4>
+				<?php if ( isset($this->users_words[$userid]) ){ ?>
+				<ul>
+					<?php foreach ( $this->users_words[$userid] as $desc ){ ?>
+					<li>
+						<div>
+							<?php if ( $desc['exists'] ) { ?><div style="float: right"><?php echo intval($desc['points']); ?></div><?php } ?>
+							<div class="<?php echo $desc['exists'] ? 'exists' : 'not-exists';  ?>"><?php echo $desc['word']; ?></div>
+							<div class="clearboth">&nbsp;</div>
+						</div>
+					</li>
+					<?php } ?>
+				</ul>
+				<?php } ?>
+			</div>
+			<?php } ?>
+			<div class="clearboth">&nbsp;</div>
+		</div>
+		<div id="result-allwords-container">
+			<?php if ( $this->grid_words ) { ?>
+			<h4><?php echo $lang['all_words'];?></h4>
+			<div class="result-allwords col-container left">
+				<div class="result-allwords col-container col0">
+					<ul>
+					<?php
+						$per_col = max(10, (intval(count($this->grid_words) / 4) + 1));
+						$col = 0;
+						$idx = -1;
+						foreach ( $this->grid_words as $desc )
+						{
+							$idx++;
+							if ( $idx >= $per_col )
+							{
+								$idx = 0;
+								$col++;
+?>
+					</ul>
+				</div>
+<?php if ( $col == 2 ) { ?>
+				<div class="clearboth">&nbsp;</div>
+			</div>
+			<div class="result-allwords col-container right">
+<?php } ?>
+				<div class="result-allwords col-container col<?php echo intval($col); ?>">
+					<ul>
+<?php
+							}
+?>
+						<li>
+							<div>
+								<div style="float: right"><?php echo intval($desc['points']); ?></div>
+								<div class="exists"><?php echo $desc['word']; ?></div>
+								<div class="clearboth">&nbsp;</div>
+							</div>
+						</li>
+<?php
+						}
+?>
+					</ul>
+					<div class="clearboth">&nbsp;</div>
+				</div>
+			</div>
+			<?php } ?>
+			<div class="clearboth">&nbsp;</div>
+		</div>
+
+	</div>
+
+	<div id="resultdef-container">
+		<div id="resultdef">
+			<a class="resultdef-link"><?php echo $lang['add_word'];?></a>
+			<a class="resultdef-msg"><?php echo $lang['add_word'];?></a>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+score = {
+
+	battleResult: function(){
+		scoreUser = 0;
+		scoreOpponent = 0;
+
+		$('p#result-win').hide();
+		$('p#result-fail').hide();
+		$('p#result-exaequo').hide();
+
+		if ( '<?php echo $this->game->gametype; ?>' >= 2 ){
+			$('div.left').find('div.solo-total').each(function(idx, div){
+				scoreUser = $(div).html();
+			});
+			$('p#result-exaequo').html('<?php echo $lang['result_score']; ?>' + scoreUser + '!');
+			$('p#result-exaequo').show();
+		}
+		if ( '<?php echo $this->game->gametype; ?>' == 1 ){
+			$('div.left').find('div.battle-total').each(function(idx, div){
+				scoreUser = $(div).html();
+			});
+			$('p#result-exaequo').html('<?php echo $lang['result_score']; ?>' + scoreUser + '<?php echo $lang['points']; ?>' + '!');
+			$('p#result-exaequo').show();
+		}
+		if ( '<?php echo $this->game->gametype; ?>' == 0 ){
+			$('div.left').find('div.battle-total').each(function(idx, div){
+				scoreUser = $(div).html();
+			});
+			$('div.right').find('div.battle-total').each(function(idx, div){
+				scoreOpponent = $(div).html();
+			});
+			if ( scoreUser > scoreOpponent ){
+				$('p#result-win').show();
+			}
+			if ( scoreUser < scoreOpponent ){
+				$('p#result-fail').show();
+			}
+			if ( scoreUser == scoreOpponent ){
+				$('p#result-exaequo').show();
+			}
+		}
+	}
+};
+
+addword = {
+
+	add: function(word){
+		var status = 0;
+		if( $('div#result-userswords-container div.exists:contains(' + word + ')').html() == word ) {
+			status = 1;
+		}
+		$.ajax({
+			url: '?mode=wordbox.add&word=' + word + '&status= ' + status,
+			type: 'GET'
+		}).done(function(msg){
+			$('a.resultdef-msg').html(msg);
+		});
+	}
+};
+
+$(document).ready(function (){
+	$('p#result-win').hide();
+	$('p#result-fail').hide();
+	$('p#result-exaequo').hide();
+	$('div.exists').each(function (){
+        $(this).qtip({
+            content: {
+				text: function (e, api) {
+				var id = $(e.target).html().toLowerCase();
+				var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
+				var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + id;
+				var page = '';
+				var word = $(e.target).html();
+
+					$.ajax({
+						async: false,
+						type: 'GET',
+						url: dico,
+						success: function(data){
+							if( data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/) ){
+								page = RegExp.$4;
+
+								$('div.result-definition').remove();
+
+								var div = $('<div id="resultdef-' + id + '" />');
+								div.addClass('result-definition');
+								div.html(page);
+								div.appendTo('div#resultdef');
+								$('a.resultdef-link').attr('onClick', 'addword.add(\'' + word + '\')');
+								$('a.resultdef-link').html('Add word');
+								$('a.resultdef-msg').html('');
+							}
+						}
+					})
+					if( page ){
+						return $('div#resultdef-container').html();
+					} else {
+						return '<?php echo $lang['no_definition'];?>';
+					}
+
+			}},
+			position: {
+				viewport: $(window)
+			},
+			style: {
+				classes: 'qtip-bootstrap',
+				width: '500'
+			},
+			show: {
+				event: 'click',
+				solo: true,
+			},
+            hide: {
+                fixed: true,
+                delay: 300
+            }
+        });
+    });
+	score.battleResult();
+});
+
+</script>
+
+</div>
+<?php
+include('./views/page.footer.html');
+?>

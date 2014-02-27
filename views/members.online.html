@@ -1,0 +1,9 @@
+<div id="members-container">
+	<?php if( $data ){ ?>
+	<ul>
+		<?php foreach ( $data as $row ){ ?>
+		<li> <a href="?mode=invitations.add&touserid=<?php echo $row['userid']; ?>" class="members-online"><?php echo $row['username']; ?></a></li>
+		<?php } ?>
+	</ul>
+	<?php } ?>
+</div>

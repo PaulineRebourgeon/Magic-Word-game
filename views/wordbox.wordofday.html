@@ -1,0 +1,38 @@
+<?php
+include('./languages/language.php');
+?>
+<div id="wordofday-container">
+	<ul id="heading">
+		<li id="wordOfDay"><p></p></li>
+		<li id="definition"></li>
+	</ul>
+</div>
+<script type="text/javascript">
+
+var definitionWordOfDay = {
+	wordOfDay: '',
+
+	load:function(){
+
+		this.wordOfDay = '<?php echo $this->random_word; ?>';
+		if ( !this.wordOfDay ){
+			$('li#wordOfDay').html('<?php echo $lang['wordbox_empty'];?>');
+		} else {
+			var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
+			var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + this.wordOfDay.toLowerCase();
+			$.get( dico, function( data ) {
+				if(data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/)){
+					page=RegExp.$4;
+					$("#definition").html( page );
+					$("#definition").addClass("wordofday-definition");
+				}
+			});
+			$('li#wordOfDay').html(this.wordOfDay);
+		}
+	}
+}
+
+$(document).ready(function () {
+	definitionWordOfDay.load();
+});
+</script>

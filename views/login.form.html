@@ -1,0 +1,38 @@
+<?php
+$title = 'se loguer';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+	<form id="login" method="post" action="./">
+		<?php if ( $this->errors ) { ?>
+		<fieldset>
+			<legend>Erreurs</legend>
+			<ul>
+				<?php foreach ( $this->errors as $error ) { ?>
+				<li>
+					<?php echo $error; ?>
+				</li>
+				<?php } ?>
+			</ul>
+		</fieldset>
+		<?php } ?>
+		<fieldset class="bloc-yellow">
+			<legend class="bloc-title">Login</legend>
+			<dl>
+				<dt><label for="username">Username</label></dt>
+				<dd><input type="text" id="username" name="username" required="required" value="<?php echo htmlspecialchars($this->username); ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="userpasswd">Password</label></dt>
+				<dd><input type="password" id="userpasswd" name="userpasswd" required="required" value="" /></dd>
+			</dl>
+			<div id="form-cmd">
+				<input type="submit" id="submit_form" name="submit_form" class="submit_buttons" />
+				<input type="hidden" name="mode" value="<?php echo $this->mode; ?>"/>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<?php
+include('./views/page.footer.html');
+?>

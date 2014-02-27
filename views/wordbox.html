@@ -1,0 +1,189 @@
+<?php
+$title = 'My Wordbox';
+include('./views/page.header.html');
+?>
+<div id="main-container">
+
+<div id="wordbox-container">
+	<div id="top">
+		<h1><?php echo $lang['mywordbox'];?></h1><br/>
+		</div>
+		<table id="wordbox-status-color">
+			<caption><?php echo $lang['word_status'];?></caption>
+			<tr>
+				<td><?php echo $lang['found_in_grid'];?> </td>
+				<td id="status-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td><?php echo $lang['definition_found'];?></td>
+				<td id="status-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</table>
+		<div id="definition"></div>
+	</div>
+	<div id="tabs">
+	<ul id="tabs-list">
+		<li><a href="#all"><?php echo $lang['all'];?></a></li>
+		<li><a href="#a">A</a></li>
+		<li><a href="#b">B</a></li>
+		<li><a href="#c">C</a></li>
+		<li><a href="#d">D</a></li>
+		<li><a href="#e">E</a></li>
+		<li><a href="#f">F</a></li>
+		<li><a href="#g">G</a></li>
+		<li><a href="#h">H</a></li>
+		<li><a href="#i">I</a></li>
+		<li><a href="#j">J</a></li>
+		<li><a href="#k">K</a></li>
+		<li><a href="#l">L</a></li>
+		<li><a href="#m">M</a></li>
+		<li><a href="#n">N</a></li>
+		<li><a href="#o">O</a></li>
+		<li><a href="#p">P</a></li>
+		<li><a href="#q">Q</a></li>
+		<li><a href="#r">R</a></li>
+		<li><a href="#s">S</a></li>
+		<li><a href="#t">T</a></li>
+		<li><a href="#u">U</a></li>
+		<li><a href="#v">V</a></li>
+		<li><a href="#w">W</a></li>
+		<li><a href="#x">X</a></li>
+		<li><a href="#y">Y</a></li>
+		<li><a href="#z">Z</a></li>
+	</ul>
+	<div id="all" style="width: auto;">
+		<div id="wordbox-list">
+		<?php if( $data ) { foreach ( $data as $wordbox => $word ){ ?>
+			<div id="<?php echo strtolower($word['wordboxword']); ?>">
+				<div class="<?php echo substr(strtolower($word['wordboxword']), 0, 1); ?> wordbox-word wordbox-status-<?php echo $word['wordboxstatus']; ?>"><?php echo $word['wordboxword']; ?></div>
+			</div>
+		<?php }} ?>
+		</div>
+	</div>
+	<div id="a"></div>
+	<div id="b"></div>
+	<div id="c"></div>
+	<div id="d"></div>
+	<div id="e"></div>
+	<div id="f"></div>
+	<div id="g"></div>
+	<div id="h"></div>
+	<div id="i"></div>
+	<div id="j"></div>
+	<div id="k"></div>
+	<div id="l"></div>
+	<div id="m"></div>
+	<div id="n"></div>
+	<div id="o"></div>
+	<div id="p"></div>
+	<div id="q"></div>
+	<div id="r"></div>
+	<div id="s"></div>
+	<div id="t"></div>
+	<div id="u"></div>
+	<div id="v"></div>
+	<div id="w"></div>
+	<div id="x"></div>
+	<div id="y"></div>
+	<div id="z"></div>
+</div>
+
+<div id="worddef">
+</div>
+
+<script type="text/javascript">
+$(function() {
+    $( "#tabs" ).tabs();
+  });
+
+var wordbox = {
+	words: [],
+	wordClicked: '',
+
+	load: function(){
+		/* permet de boucler tout l'alphabet pour faire le match, permet aussi à faire le lien avec la div correspondante sur la page html 'content_'+alpha[i] */
+
+		var alpha = new Array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+
+		var reg = new RegExp(' wordbox-word wordbox-status-([0-9])$');
+		for ( i = 0; i < alpha.length; i++ ){
+			$('div#wordbox-list div').find('div').each(function(idx, div){
+				if( (alpha[i] + ' wordbox-word wordbox-status-0') == $(div).attr('class') )
+				{
+					$('div#' + alpha[i]).append("<div id=" + $(div).html().toLowerCase() + " class=\"wordbox-content\" ></div>");
+					$(div).removeClass(alpha[i]);
+					$(div).appendTo($('div#' + $(div).html().toLowerCase()));
+				}
+				if( (alpha[i] + ' wordbox-word wordbox-status-1') == $(div).attr('class') )
+				{
+					$('div#' + alpha[i]).append("<div id=" + $(div).html().toLowerCase() + " class=\"wordbox-content\" ></div>");
+					$(div).removeClass(alpha[i]);
+					$(div).appendTo($('div#' + $(div).html().toLowerCase()));
+				}
+				if( (alpha[i] + ' wordbox-word wordbox-status-2') == $(div).attr('class') )
+				{
+					$('div#' + alpha[i]).append("<div id=" + $(div).html().toLowerCase() + " class=\"wordbox-content\" ></div>");
+					$(div).removeClass(alpha[i]);
+					$(div).appendTo($('div#' + $(div).html().toLowerCase()));
+				}
+			});
+		}
+	}
+};
+
+$(document).ready(function () {
+	wordbox.load();
+
+    $('div.wordbox-word').each(function () {
+        $(this).qtip({
+            content: {
+				text: function (e, api) {
+				var id = $(e.target).html().toLowerCase();
+				var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
+				var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + id;
+				var page = '';
+
+					$.ajax({
+						async: false,
+						type: 'GET',
+						url: dico,
+						success: function(data) {
+							if( data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/) ){
+								page = RegExp.$4;
+
+								var div = $('<div id="worddef-' + id + '" />');
+								div.addClass('wordbox-definition');
+								div.html(page);
+								div.appendTo('div#worddef');
+							}
+						}
+					})
+					return $('div#worddef-' + id).html();
+
+
+			}},
+			position: {
+				viewport: $(window)
+			},
+			style: {
+				classes: 'qtip-bootstrap',
+				width: '500'
+			},
+			show: {
+				event: 'click',
+				solo: true
+			},
+            hide: {
+                fixed: true,
+                delay: 300
+            }
+        });
+    });
+
+});
+
+</script>
+</div>
+<?php
+include('./views/page.footer.html');
+?>
