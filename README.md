@@ -25,7 +25,7 @@ Installation
 TODO
 
 ## Contributors
-### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), solely developped by :
+### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), solely developped for Innovalanuges by :
 * Pauline Rebourgeon
 * Christine Lutian
 
