@@ -1,7 +1,7 @@
 Magic Word
 ================
 
-Magic Word was created as part of the GAMER work package in the *[Innovalangues project](http://innovalangues.fr/)* at the Stendhal University in Grenoble, France. Innovalangues is a language learning centered IDEFI project (Initiatives in Excellence for Innovative Education) and will run from 2012 to 2018.
+Magic Word was created as part of the GAMER work package in the **[Innovalangues project](http://innovalangues.fr/)** at the Stendhal University in Grenoble, France. Innovalangues is a language learning centered IDEFI project (Initiatives in Excellence for Innovative Education) and will run from 2012 to 2018.
 
 Based on a request by Innovalangue, this first version of Magic Word was designed and developed by two students of linguistics in the Language Industries master’s program, Pauline Rebourgeon and Christine Lutian, for their end-of-study professional project. Initially conceived for learners of English or Italian, the Innovalanges project hopes to adapt Magic Word for additional languages.
 
@@ -25,5 +25,7 @@ Installation
 TODO
 
 ## Contributors
+### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), solely developped by :
 * Pauline Rebourgeon
 * Christine Lutian
+### Later versions
