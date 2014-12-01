@@ -28,4 +28,5 @@ TODO
 ### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), solely developped by :
 * Pauline Rebourgeon
 * Christine Lutian
+
 ### Later versions
