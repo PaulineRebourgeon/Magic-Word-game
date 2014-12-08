@@ -22,7 +22,8 @@ Requirements
 
 Installation
 -------------
-TODO
+* The content of the LANGUAGE RESOURCES folder should not be uploaded as is to the server but imported in the MySQL database
+* TODO
 
 ## Contributors
 ### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), developped for Innovalangues solely by :
