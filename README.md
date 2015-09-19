@@ -31,7 +31,5 @@ Installation
 * Christine Lutian
 
 ### Later versions
-### Language resources :
-The linguistic resources used (see "LANGUAGE RESOURCES" folder) are sub-licensed according to their original license :
-* Italian dictionary : http://sslmitdev-online.sslmit.unibo.it/linguistics/morph-it.php
-* English dictionary : http://infolingu.univ-mlv.fr/DonneesLinguistiques/Dictionnaires/telechargement.html
+* Maryam Nejat
+* David Graceffa

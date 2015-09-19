@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 $dbhost = 'localhost';
 $dbuser = 'magicword';
@@ -7,7 +7,7 @@ $dbname = 'magicword';
 
 
 
-$dbuser = 'root';
-$dbpasswd = '';
+$dbuser = 'magicword';
+$dbpasswd = 'magicword$';
 
 ?>

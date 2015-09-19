@@ -21,7 +21,7 @@ var definitionWordOfDay = {
 			var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
 			var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + this.wordOfDay.toLowerCase();
 			$.get( dico, function( data ) {
-				if(data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/)){
+				if(data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<(ol|dd)>[\s\S]*?<\/(ol|dd)>))/)){
 					page=RegExp.$4;
 					$("#definition").html( page );
 					$("#definition").addClass("wordofday-definition");
