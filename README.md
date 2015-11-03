@@ -33,6 +33,6 @@ Installation
 ### Later versions
 * Maryam Nejat
 * David Graceffa
-* 
+ 
 ### Other implementations
-The Università di Bologna has proposed another version of the game more oriented towards finding particular words in the grid. It contains an algorithm that would allow to devise home made grids. [Do not hesitate to have a look at their instance of the game](https://github.com/giacomo-mambelli/magicword)
+The *Università di Bologna* has proposed another version of the game more oriented towards finding particular words in the grid. It contains an algorithm to create grids containing certain words, it would allow to devise some pretty neat functionalities in terms of personalization (especially for language learning). [Do not hesitate to have a look at their instance of the game](https://github.com/giacomo-mambelli/magicword)
