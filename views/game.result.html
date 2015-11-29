@@ -236,33 +236,16 @@ $(document).ready(function (){
 						 url: dico,
 						 // pour function differants lang
 						 success: function(data){
-							
-							page = wordboxLang(lang,data);
-						//	if (lang==de){
-								//expression=data.match(/(Bedeutungen)([\s\S]*?)(<dl>[\s\S]*?<\/dl>)/)
-								//page=RegExp.$3;
-							//}	
-							//if( data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<(ol|dl)>[\s\S]*?<\/(ol|dl)>))/) ){
-							// page = RegExp.$3;
-							//POUR ITALIEN ET ANGLAIS
-							//if( data.match(/(<ol>[\s\S]*?<\/ol>)/)){
-							//page = RegExp.$1;
-							//POUR ALLEMAND
-							//if( data.match(/(Bedeutungen)([\s\S]*?)(<dl>[\s\S]*?<\/dl>)/ )){
-								 //page = RegExp.$3;
-								 //console.log("ici");
-								//console.log(page); 
-								
-								 $('div.result-definition').remove();
+							page = wordboxLang(lang,data);	
+							$('div.result-definition').remove();
 
-								 var div = $('<div id="resultdef-' + id + '" />');
-								 div.addClass('result-definition');
-								 div.html(page);
-								 div.appendTo('div#resultdef');
-								 $('a.resultdef-link').attr('onClick', 'addword.add(\'' + word + '\')');
-								 $('a.resultdef-link').html('Add word');
-								 $('a.resultdef-msg').html('');
-							// }
+							var div = $('<div id="resultdef-' + id + '" />');
+							div.addClass('result-definition');
+							div.html(page);
+							div.appendTo('div#resultdef');
+							$('a.resultdef-link').attr('onClick', 'addword.add(\'' + word + '\')');
+							$('a.resultdef-link').html('Add word');
+							$('a.resultdef-msg').html('');
 						 }
 					 })
 					

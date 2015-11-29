@@ -21,11 +21,9 @@ var definitionWordOfDay = {
 			var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
 			var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + this.wordOfDay.toLowerCase();
 			$.get( dico, function( data ) {
-				if(data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<(ol|dd)>[\s\S]*?<\/(ol|dd)>))/)){
-					page=RegExp.$4;
-					$("#definition").html( page );
-					$("#definition").addClass("wordofday-definition");
-				}
+				page = wordboxLang(lang,data);
+				$("#definition").html( page );
+				$("#definition").addClass("wordofday-definition");
 			});
 			$('li#wordOfDay').html(this.wordOfDay);
 		}
@@ -35,4 +33,20 @@ var definitionWordOfDay = {
 $(document).ready(function () {
 	definitionWordOfDay.load();
 });
+
+function wordboxLang(lang,html){
+	var page = "";
+	if(lang=="fr") {
+		if(html.match(/<span[\s\S]+?id="fr"[\s\S]*?(<ol>[\s\S]*?<\/ol>)/)) {
+			page = RegExp.$1;
+		}
+	} else {
+		if(html.match(/(<ol>[\s\S]*?<\/ol>)/)){
+			page = RegExp.$1;
+		}
+	}
+	
+	return page;
+}
+
 </script>
