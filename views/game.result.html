@@ -172,19 +172,19 @@ score = {
 			$('p#result-exaequo').html('<?php echo $lang['result_score']; ?>' + scoreUser + '!');
 			$('p#result-exaequo').show();
 		}
-		if ( '<?php echo $this->game->gametype; ?>' == 1 ){
+		if ( <?php echo $this->game->gametype; ?> == 1 ){
 			$('div.left').find('div.battle-total').each(function(idx, div){
 				scoreUser = $(div).html();
 			});
 			$('p#result-exaequo').html('<?php echo $lang['result_score']; ?>' + scoreUser + '<?php echo $lang['points']; ?>' + '!');
 			$('p#result-exaequo').show();
 		}
-		if ( '<?php echo $this->game->gametype; ?>' == 0 ){
+		if ( <?php echo $this->game->gametype; ?> == 0 ){
 			$('div.left').find('div.battle-total').each(function(idx, div){
-				scoreUser = $(div).html();
+				scoreUser = parseInt($(div).html());
 			});
 			$('div.right').find('div.battle-total').each(function(idx, div){
-				scoreOpponent = $(div).html();
+				scoreOpponent = parseInt($(div).html());
 			});
 			if ( scoreUser > scoreOpponent ){
 				$('p#result-win').show();
