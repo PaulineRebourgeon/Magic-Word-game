@@ -47,11 +47,11 @@ class wordbox
 			}
 			if ( $user->get_lang() == 'it' )
 			{
-				$msg = ' è stato aggiunto al tuo Parole in scatola.';
+				$msg = ' Ã¨ stato aggiunto al tuo Parole in scatola.';
 			}
 			if ( $user->get_lang() == 'fr' )
 			{
-				$msg = ' a �t� ajout� dans ton wordbox.';
+				$msg = ' a été ajouté dans ton wordbox.';
 			}
 			if ( $user->get_lang() == 'es' )
 			{
@@ -59,7 +59,7 @@ class wordbox
 			}
 			if ( $user->get_lang() == 'de' )
 			{
-				$msg = ' zu ihrem wordbox hinzugef�gt.';
+				$msg = ' zu ihrem wordbox hinzugefügt.';
 			}
 		}
 		if ( $word_exists === true )
@@ -70,11 +70,11 @@ class wordbox
 			}
 			if ( $user->get_lang() == 'it' )
 			{
-				$msg = ' è già presente!';
+				$msg = ' Ã¨ giÃ  presente!';
 			}
 			if ( $user->get_lang() == 'fr' )
 			{
-				$msg = ' est d�j� pr�sent.';
+				$msg = ' est déjà présent.';
 			}
 			if ( $user->get_lang() == 'de' )
 			{

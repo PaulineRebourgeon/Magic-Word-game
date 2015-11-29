@@ -84,7 +84,7 @@ class grid
 				}
 				if ( $this->userlang == 'de' )
 				{
-					$this->instruction = ' Finden Sie so viele Worter ';
+					$this->instruction = ' Finden Sie so viele Wörter ';
 				}
 				if ( $this->userlang == 'es' )
 				{
@@ -107,7 +107,7 @@ class grid
 				}
 				if ( $this->userlang == 'de' )
 				{
-					$this->instruction = 'Finden Sie die langsten Worter';
+					$this->instruction = 'Finden Sie die langsten Wörter';
 				}
 				if ( $this->userlang == 'es' )
 				{
@@ -201,7 +201,7 @@ class grid
 				}
 				if ( $this->userlang == 'de' )
 				{
-					$this->instruction = ' Finden Sie so viele Worter';
+					$this->instruction = ' Finden Sie so viele Wörter';
 				}
 				if ( $this->userlang == 'es' )
 				{
@@ -224,7 +224,7 @@ class grid
 				}
 				if ( $this->userlang == 'de' )
 				{
-					$this->instruction = 'Finden Sie die langsten Worter';
+					$this->instruction = 'Finden Sie die langsten Wörter';
 				}
 				if ( $this->userlang == 'es' )
 				{
@@ -292,7 +292,7 @@ class grid
 					break;
 				}
 			}
-			if ( $this->userlang == 'de' )// if faut pr�ciser les contraintes
+			if ( $this->userlang == 'de' )// if faut préciser les contraintes
 			{
 				switch ( $this->choose_constraint )
 				{
@@ -591,7 +591,7 @@ class grid
 				break;
 			}
 		}
-		// il faut pr�ciser des contraintes
+		// il faut préciser des contraintes
 		if ( $this->userlang == 'de' )
 		{
 			switch ( $this->choose_constraint )
@@ -1040,7 +1040,7 @@ class grid
 			$exists = ($row = $result->fetch_assoc()) ? true : false;
 			$result->free();
 
-			// si pas de mot dans le dico commençant par le mot en cours, ne pas retourner le mot et arrêter la recherche
+			// si pas de mot dans le dico commençant par le mot en cours, ne pas retourner le mot et arrÃªter la recherche
 			if ( !$exists )
 			{
 				return array();

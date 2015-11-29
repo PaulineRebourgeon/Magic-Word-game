@@ -1,12 +1,12 @@
 <?php
 	$path = "./LANGUAGE RESOURCES/";
 	$languages = array(
-		"IT" => array("filenames" => "Parts/DicoIT.txt.sql*Id*.sql",
-					  "maxId" => 3),
-		"FR" => array("filenames" => "DicoFR*Id*.txt.sql",
-					  "maxId" => 3),
-		"EN" => array("filenames" => "Parts/DicoENN.txt.sql*Id*.sql",
-					  "maxId" => 3)
+		"IT" => array("filenames" => "dico_it_expe.sql",
+					  "maxId" => 0),
+		"FR" => array("filenames" => "dico_fr_expe.sql",
+					  "maxId" => 0),
+		"EN" => array("filenames" => "dico_en_expe.sql",
+					  "maxId" => 0)
 		/*,//not reliable
 		"DE" => array("filenames" => "DicoDE.txt.sql*Id*.sql",
 					  "maxId" => 63),
