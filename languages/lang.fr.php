@@ -44,7 +44,7 @@ $lang['home_wotd'] = 'Word of The Day';
 $lang['home_play_solo'] = 'Practice Mode';
 $lang['home_play_duo'] = 'Battle Mode';
 $lang['home_connected_members'] = 'Who\'s online?';
-$lang['learning'] = 'You\'re learning English';
+$lang['learning'] = 'Tu apprends le français<br /><span style="font-size:small">(et promis un jour on traduira l\'interface…)</span>';
 $lang['pending'] = 'Pending games';
 
 //game: edit.form.html, game_instruction, game.result.html, game.result.full.html, login.form.html, game.launch.html, game.launch.practice.html, members.html, game.result.full.html, game.result.class.php, page.errors.html
