@@ -207,7 +207,7 @@ function load_schema($dbms_schema){
 	foreach($sql_query as $sql){
 		if($sql !== ""){
 			echo $i++."<br />";
-			$db->query($sql) or die('error in query: '.$sql);
+			$db->query($sql) or die('error in query: '.$sql."<br />".$db->get_errors());
 		}
 	}
 }

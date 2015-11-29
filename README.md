@@ -25,10 +25,10 @@ Installation
 * rename ./sys/config.db.sample.php to ./sys/config.db.php and include YOUR db connect info
 * run initializeDB.php to verify your config works and to create the necessary tables
 * the dB won't have a table for the dictionnaries, all those are included in the language files pointed to by "load_dictionnary.php"). To use them :
-** Select the dictionnaries you want in 'load_dictionnary.php' by un/commenting them ;
-** uncomment the "include_once('load_dictionary.php');" (it might be safer to connect to the server and use the MySQL cli)
-** The content of the LANGUAGE RESOURCES can be erased from the server after that operation.
-** It's also possible to manually run the sql files on the server.
+  * Select the dictionnaries you want in 'load_dictionnary.php' by un/commenting them ;
+  * comment the "include_once('load_dictionary.php');" if you don't want to load the dictionaries… (it might be safer to connect to the server and use the MySQL cli)
+  * The content of the LANGUAGE RESOURCES can be erased from the server after that operation.
+  * It's also possible to manually run the sql files on the server.
 
 ## Contributors
 ### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), developped for Innovalangues solely by :
