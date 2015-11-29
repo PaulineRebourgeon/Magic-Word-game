@@ -294,25 +294,14 @@ $(document).ready(function (){
 });
 
 function wordboxLang(lang,html){
-	if (lang=="de"){
-		if(html.match(/(Bedeutungen)([\s\S]*?)(<dl>[\s\S]*?<\/dl>)/)){
-		page=RegExp.$3;
-		}else{
-			page="";
+	var page = "";
+	if(lang=="fr") {
+		if(html.match(/<span[\s\S]+?id="fr"[\s\S]*?(<ol>[\s\S]*?<\/ol>)/)) {
+			page = RegExp.$1;
 		}
-	} else if(lang == "en" || lang == "it"|| lang=="fr") {
+	} else {
 		if(html.match(/(<ol>[\s\S]*?<\/ol>)/)){
-		page = RegExp.$1;
-		}else{
-			page="";
-		}
-	} else if (lang == "es") {
-		if(html.match(/(<div id="mw-content-text" .*)>[\s\S]*?(<dl>[\s\S]*?<\/dl>)/)){
-		page=RegExp.$2
-		//if(html.match(/(<dl>[\s\S]*?<\/dl>)/)){
-		//page = RegExp.$1;	
-		}else{
-			page="";
+			page = RegExp.$1;
 		}
 	}
 	
