@@ -1,6 +1,25 @@
 <?php
 $title = 'Results';
 include('./views/page.header.html');
+
+function display_word($word, $exists, $points){
+	$res = "\t\t\t\t\t\t<div>\n";
+	if ( $exists ) {
+		$res .="\t\t\t\t\t\t\t<div style=\"float: right\">".intval($points)."</div>\n";
+	}
+		$res .= "\t\t\t\t\t\t\t<div class='".($exists ? 'exists' : 'not-exists')."'>\n";
+		if ( $exists ) {
+			$res .= "\t\t\t\t\t\t\t\t<div class='addWButton' data-word='$word'></div>\n";
+		}
+		else{
+			$res .= "\t\t\t\t\t\t\t\t<div class='addWButton'></div>\n";
+		}
+			$res .= "\t\t\t\t\t\t\t\t<span class='existingWord'>$word</span>\n";
+		$res .= "\t\t\t\t\t\t\t</div>";
+		$res .= "\t\t\t\t\t\t\t<div class=\"clearboth\">&nbsp;</div>\n";
+	$res .= "\t\t\t\t\t\t</div>\n";
+	return $res;
+}
 ?>
 <div id="main-container">
 
@@ -83,11 +102,9 @@ include('./views/page.header.html');
 				<ul>
 					<?php foreach ( $this->users_words[$userid] as $desc ){ ?>
 					<li>
-						<div>
-							<?php if ( $desc['exists'] ) { ?><div style="float: right"><?php echo intval($desc['points']); ?></div><?php } ?>
-							<div class="<?php echo $desc['exists'] ? 'exists' : 'not-exists';  ?>"><?php echo $desc['word']; ?></div>
-							<div class="clearboth">&nbsp;</div>
-						</div>
+						<?php echo display_word($desc['word'],
+												$desc['exists'],
+												$desc['points']); ?>
 					</li>
 					<?php } ?>
 				</ul>
@@ -127,11 +144,9 @@ include('./views/page.header.html');
 							}
 ?>
 						<li>
-							<div>
-								<div style="float: right"><?php echo intval($desc['points']); ?></div>
-								<div class="exists"><?php echo $desc['word']; ?></div>
-								<div class="clearboth">&nbsp;</div>
-							</div>
+							<?php echo display_word($desc['word'],
+												true,
+												$desc['points']); ?>
 						</li>
 <?php
 						}
@@ -215,64 +230,100 @@ addword = {
 	}
 };
 
+function fetchDef(word, ifexists){
+	//ifexists to call a function on the word if a definition is called
+	var id = word.toLowerCase();
+	var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
+	var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + id;
+	var page = '';
+	var pageTraits = '';
+	console.log(word);/**/
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: dico,
+		// pour function differants lang
+		success: function(data){
+			page = wordboxLang(lang,data);	
+			$('div.result-definition').remove();
+
+			var div = $('<div id="resultdef-' + id + '" />');
+			div.addClass('result-definition');
+			div.html(page);
+			div.appendTo('div#resultdef');
+			$('a.resultdef-link').attr('onClick', 'addword.add(\'' + word + '\')');
+			$('a.resultdef-link').html('Add word');
+			$('a.resultdef-msg').html('');
+			if((ifexists!=undefined) && page){
+				ifexists(word);
+			}
+		}
+	});
+	
+	if( page ){
+		return $('div#resultdef-container').html();
+	} else {
+		return '<?php echo $lang['no_definition'];?>';
+	}
+}
+
+var qtipInit = {
+    content: {
+		text: function(e, api){
+				  return fetchDef($(e.target).html());
+			  }
+	},
+	position: {
+		viewport: $(window)
+	},
+	style: {
+		classes: 'qtip-bootstrap',
+		width: '500'
+	},
+	show: {
+		event: 'click',
+		solo: true,
+	},
+    hide: {
+        fixed: true,
+        delay: 300
+    }
+};
+
+addWButton = function(e, api){
+	var word = $(e.target).attr("data-word");
+	console.log("button",word);/**/
+	var res = fetchDef(word,addword.add);
+	return res;
+}
+
+var qtipInitButton = {
+    content: {
+		text: addWButton
+	},
+	position: {
+		viewport: $(window)
+	},
+	style: {
+		classes: 'qtip-bootstrap',
+		width: '500'
+	},
+	show: {
+		event: 'click',
+		solo: true,
+	},
+    hide: {
+        fixed: true,
+        delay: 300
+    }
+};
+
 $(document).ready(function (){
 	$('p#result-win').hide();
 	$('p#result-fail').hide();
 	$('p#result-exaequo').hide();
-	$('div.exists').each(function (){
-        $(this).qtip({
-            content: {
-				text: function (e, api) {
-				var id = $(e.target).html().toLowerCase();
-				var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
-				var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + id;
-				var page = '';
-				var pageTraits = '';
-				var word = $(e.target).html();
-
-					 $.ajax({
-						 async: false,
-						 type: 'GET',
-						 url: dico,
-						 // pour function differants lang
-						 success: function(data){
-							page = wordboxLang(lang,data);	
-							$('div.result-definition').remove();
-
-							var div = $('<div id="resultdef-' + id + '" />');
-							div.addClass('result-definition');
-							div.html(page);
-							div.appendTo('div#resultdef');
-							$('a.resultdef-link').attr('onClick', 'addword.add(\'' + word + '\')');
-							$('a.resultdef-link').html('Add word');
-							$('a.resultdef-msg').html('');
-						 }
-					 })
-					
-					if( page ){
-						return $('div#resultdef-container').html();
-					 } else {
-						return '<?php echo $lang['no_definition'];?>';
-					 }
-
-			}},
-			position: {
-				viewport: $(window)
-			},
-			style: {
-				classes: 'qtip-bootstrap',
-				width: '500'
-			},
-			show: {
-				event: 'click',
-				solo: true,
-			},
-            hide: {
-                fixed: true,
-                delay: 300
-            }
-        });
-    });
+    $('span.existingWord').qtip(qtipInit);
+	$('div.addWButton').qtip(qtipInitButton);
 	score.battleResult();
 });
 

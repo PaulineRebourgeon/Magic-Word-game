@@ -1040,7 +1040,7 @@ class grid
 			$exists = ($row = $result->fetch_assoc()) ? true : false;
 			$result->free();
 
-			// si pas de mot dans le dico commençant par le mot en cours, ne pas retourner le mot et arrÃªter la recherche
+			// si pas de mot dans le dico commençant par le mot en cours, ne pas retourner le mot et arrêter la recherche
 			if ( !$exists )
 			{
 				return array();

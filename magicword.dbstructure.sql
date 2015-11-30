@@ -148,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `wordbox` (
   `userid` int(11) NOT NULL DEFAULT '0',
   `wordboxword` varchar(255) NOT NULL DEFAULT '0',
   `wordboxstatus` tinyint(3) NOT NULL DEFAULT '0',
-  `wordboxlang` varchar(255) NOT NULL DEFAULT ''
+  `wordboxlang` varchar(255) NOT NULL DEFAULT '',
+  KEY `userid` (`userid`,`wordboxstatus`,`wordboxlang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -161,7 +162,8 @@ CREATE TABLE IF NOT EXISTS `wordofday` (
   `userid` int(11) NOT NULL DEFAULT '0',
   `wordofdaydate` int(11) NOT NULL DEFAULT '0',
   `wordofdayword` varchar(255) NOT NULL DEFAULT '',
-  `wordofdaylang` varchar(255) NOT NULL DEFAULT ''
+  `wordofdaylang` varchar(255) NOT NULL DEFAULT '',
+  KEY `userid` (`userid`,`wordofdaydate`,`wordofdaylang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

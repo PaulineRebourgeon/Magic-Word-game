@@ -52,7 +52,7 @@ $lang['result'] = 'Result';
 $lang['round'] = 'Round';
 $lang['no_results'] = 'Sorry, no results available';
 $lang['errors'] = 'Errors';
-$lang['result-instruction'] = 'Click on any word to see its definition.';
+$lang['result-instruction'] = '<strong>Cliquer sur un mot</strong> pour obtenir sa <strong>définition</strong>.<br />Vous pourrez dès lors l\'<strong>ajouter à la wordbox</strong>.<br />Pour ce faire vous pouvez également appuyer sur le <strong>+</strong>.';
 
 $lang['result_win'] = 'Congratulations, you win!';
 $lang['result_fail'] = 'Too bad, you lost!';
@@ -101,7 +101,7 @@ $lang['word_already_in_box'] = ' is already in your Wordbox';
 $lang['word_added_to_box'] = ' has been added to your Wordbox';
 $lang['mywordbox'] = 'My Wordbox';
 $lang['all'] = 'All';
-$lang['add_word'] = 'Add word!';
+$lang['add_word'] = 'Ajouter à la wordbox';
 $lang['no_definition'] = 'Sorry, no definition was found for this word.';
 $lang['wordbox_empty'] = 'You have no words in your Wordbox. Once you start adding words, one will appear the next day.';
 $lang['word_status'] = 'Status of words in your Wordbox';
