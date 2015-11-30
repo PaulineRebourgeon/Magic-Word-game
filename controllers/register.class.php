@@ -93,7 +93,7 @@ class register
             $result->free();
             if ($row)
             {
-                $this->errors[] = 'This username already exists';
+                $this->errors[] = 'This username (or e-mail address) already exists';
             }
         }
     }
