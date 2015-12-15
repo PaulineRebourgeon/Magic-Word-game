@@ -167,8 +167,7 @@ $(document).ready(function(){
 		var lang = "<?php echo htmlspecialchars($GLOBALS['user']->userlang); ?>";
 		var dico = '?mode=wordbox.definition&url=https://' + lang + '.wiktionary.org/wiki/' + id;
 		$.get( dico, function( data ){
-			if( data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/) ){
-			page = RegExp.$4;
+			page = wordboxLang(lang,data);
 
 			// création du conteneur de chaque mot
 			var ul = $('<ul />');
@@ -216,6 +215,21 @@ $(document).ready(function(){
 		});
 	});
 });
+
+function wordboxLang(lang,html){
+	var page = "";
+	if(lang=="fr") {
+		if(html.match(/<span[\s\S]+?id="fr"[\s\S]*?(<ol>[\s\S]*?<\/ol>)/)) {
+			page = RegExp.$1;
+		}
+	} else {
+		if(html.match(/(<ol>[\s\S]*?<\/ol>)/)){
+			page = RegExp.$1;
+		}
+	}
+	
+	return page;
+}
 
 </script>
 <?php

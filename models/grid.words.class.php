@@ -1,4 +1,4 @@
-ç<?php
+<?php
 
 class grid_words
 {

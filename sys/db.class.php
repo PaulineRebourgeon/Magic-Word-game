@@ -49,6 +49,10 @@ class db
 		return $this->handler->affected_rows;
     }
 
+    public function get_errors(){
+        return $this->handler->error ;
+    }
+
     public function escape($str)
     {
         return is_string($str) ? '\'' . $this->handler->real_escape_string($str) . '\'' : intval($str);

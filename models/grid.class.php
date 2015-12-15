@@ -78,6 +78,18 @@ class grid
 				{
 					$this->instruction = 'Trova quante più parole';
 				}
+				if ( $this->userlang == 'fr' )
+				{
+					$this->instruction = ' Trouvez autant de mots que possible';
+				}
+				if ( $this->userlang == 'de' )
+				{
+					$this->instruction = ' Finden Sie so viele Wörter ';
+				}
+				if ( $this->userlang == 'es' )
+				{
+					$this->instruction = ' Encuentre tantas palabras';
+				}
 				$this->get_bonus_allwords();
 			break;
 			case GRIDTYPE_LONGEST:
@@ -88,6 +100,18 @@ class grid
 				if ( $this->userlang == 'it' )
 				{
 					$this->instruction = 'Trovare le parole più lunghe';
+				}
+				if ( $this->userlang == 'fr' )
+				{
+					$this->instruction = 'Trouvez les mots plus longs';
+				}
+				if ( $this->userlang == 'de' )
+				{
+					$this->instruction = 'Finden Sie die langsten Wörter';
+				}
+				if ( $this->userlang == 'es' )
+				{
+					$this->instruction = 'Encuentre las palabras mas largas';
 				}
 				$this->get_bonus_longest();
 			break;
@@ -171,6 +195,19 @@ class grid
 				{
 					$this->instruction = 'Trova quante più parole';
 				}
+				if ( $this->userlang == 'fr' )
+				{
+					$this->instruction = 'Trouvez autant de mots que possible';
+				}
+				if ( $this->userlang == 'de' )
+				{
+					$this->instruction = ' Finden Sie so viele Wörter';
+				}
+				if ( $this->userlang == 'es' )
+				{
+					$this->instruction = ' Encuentre tantas palabras';
+				}
+				
 			break;
 			case GRIDTYPE_LONGEST:
 				if ( $this->userlang == 'en' )
@@ -181,6 +218,19 @@ class grid
 				{
 					$this->instruction = 'Trovare le parole più lunghe';
 				}
+				if ( $this->userlang == 'fr' )
+				{
+					$this->instruction = 'Trouvez les mots plus longs';
+				}
+				if ( $this->userlang == 'de' )
+				{
+					$this->instruction = 'Finden Sie die langsten Wörter';
+				}
+				if ( $this->userlang == 'es' )
+				{
+					$this->instruction = 'Encuentre las palabras mas largas';
+				}
+				
 			break;
 			case GRIDTYPE_CONSTRAINTS:
 			break;
@@ -224,6 +274,51 @@ class grid
 					break;
 					case "3":
 						$this->instruction = 'Trovare le parole al plurale';
+					break;
+				}
+			}
+				if ( $this->userlang == 'fr' )
+			{
+				switch ( $this->choose_constraint )
+				{
+					case "1":
+						$this->instruction = 'Trouvez des mots qui finissent avec es';
+					break;
+					case "2":
+						$this->instruction = 'Trouvez des mots qui finissent avec ez';
+					break;
+					case "3":
+						$this->instruction = 'Trouvez des mots qui finissent avec is';
+					break;
+				}
+			}
+			if ( $this->userlang == 'de' )// if faut préciser les contraintes
+			{
+				switch ( $this->choose_constraint )
+				{
+					case "1":
+						$this->instruction = '................';
+					break;
+					case "2":
+						$this->instruction = '.....................';
+					break;
+					case "3":
+						$this->instruction = '......................';
+					break;
+				}
+			}
+			if ( $this->userlang == 'es' )
+			{
+				switch ( $this->choose_constraint )
+				{
+					case "1":
+						$this->instruction = 'Encuentre las palabras al femenino';
+					break;
+					case "2":
+						$this->instruction = 'Encuentre las palabras al masculino';
+					break;
+					case "3":
+						$this->instruction = 'Encuentre las palabras al plural';
 					break;
 				}
 			}
@@ -396,6 +491,157 @@ class grid
 					trigger_error('Game not found!', E_USER_ERROR);
 				break;
 			}
+		}// ce block de " if "faut adapter à la langue française
+		if ( $this->userlang == 'fr' )
+		{
+			switch ( $this->choose_constraint )
+			{
+				case "1":
+					$this->instruction = 'Les mots qui finissent avec es';
+					$this->constraint = 'ES';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( substr($this->word_to_check, -2) == 'ES' )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "2":
+					$this->instruction = 'Les mots qui finissent avec ez';
+					$this->constraint = 'EZ';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( substr($word, -2) == 'EZ' )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "3":
+					$this->instruction = 'Les mots qui finissent avec is';
+					$this->constraint = 'IS';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( substr($this->word_to_check, -2) == 'IS' )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				default:
+					trigger_error('Game not found!', E_USER_ERROR);
+				break;
+			}
+		}
+		if ( $this->userlang == 'es' )
+		{
+			switch ( $this->choose_constraint )
+			{
+				case "1":
+					$this->instruction ='Encuentre las palabras al femenino';
+					$this->constraint = 'AS';
+					//$this->constraint_2 = 'E';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -1) == 'A') || (substr($word, -2) == 'AS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "2":
+					$this->instruction = 'Encuentre las palabras al masculino';
+					$this->constraint = 'OS';
+					//$this->constraint_2 = 'I';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -1) == 'O') || (substr($word, -2) == 'OS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "3":
+					$this->instruction = 'Encuentre las palabras al plural';
+					$this->constraint = 'S';
+					//$this->constraint_2 = 'E';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -2) == 'OS') || (substr($word, -2) == 'AS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				default:
+					trigger_error('Game not found!', E_USER_ERROR);
+				break;
+			}
+		}
+		// il faut préciser des contraintes
+		if ( $this->userlang == 'de' )
+		{
+			switch ( $this->choose_constraint )
+			{
+				case "1":
+					$this->instruction ='...............';
+					$this->constraint = '';
+					//$this->constraint_2 = 'E';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -1) == 'A') || (substr($word, -2) == 'AS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "2":
+					$this->instruction = '............';
+					$this->constraint = 'OS';
+					//$this->constraint_2 = 'I';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -1) == 'O') || (substr($word, -2) == 'OS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				case "3":
+					$this->instruction = '.........................';
+					$this->constraint = 'S';
+					//$this->constraint_2 = 'E';
+					$this->generate_constraints();
+					foreach ( $this->all_words as $word => $points )
+					{
+						$this->word_to_check = $word;
+						if ( (substr($word, -2) == 'OS') || (substr($word, -2) == 'AS') )
+						{
+							$this->all_words[$word] *= $bonusPoints;
+						}
+					}
+				break;
+				default:
+					trigger_error('Game not found!', E_USER_ERROR);
+				break;
+			}
 		}
 	}
 
@@ -411,7 +657,7 @@ class grid
 			$best_count = 0;
 
 			$count = 0;
-			while ( $best_count < 230 )
+			while ( $best_count < 50 )
 			{
 				$count++;
 
@@ -448,7 +694,7 @@ class grid
 			$countconstraints = 0;
 
 			// trouver plus de 20 mots respectant la contrainte donnée
-			while ( ($best_count < 150) || ($best_constraints < 20) )
+			while ( ($best_count < 100) || ($best_constraints < 10) )
 			{
 				$count++;
 				$this->words_test = array();
@@ -499,6 +745,91 @@ class grid
 						}
 					}
 					if ( $this->userlang == 'it' )
+					{
+						switch ( $this->choose_constraint )
+						{
+							case "1":
+								$get_constraint = substr($word, -1);
+								$constraint_1 = 'A';
+								$constraint_2 = 'E';
+							break;
+							case "2":
+								$get_constraint = substr($word, -1);
+								$constraint_1 = 'O';
+								$constraint_2 = 'I';
+							break;
+							case "3":
+								$get_constraint = substr($word, -1);
+								$constraint_1 = 'E';
+								$constraint_2 = 'I';
+							break;
+							default:
+								trigger_error('Game not found!', E_USER_ERROR);
+							break;
+						}
+						if ( $get_constraint == $constraint_1 || $get_constraint == $constraint_2 )
+						{
+							$countconstraints++;
+							array_push($this->words_test, $word);
+						}
+					}// ce block de "if" faut modifier pour le français
+					if ( $this->userlang == 'fr' )
+					{
+						switch ( $this->choose_constraint )
+						{
+							case "1":
+								$get_constraint = substr($word, -2);
+								$constraint = 'ES';
+							break;
+							case "2":
+								$get_constraint = substr($word, -2);
+								$constraint = 'EZ';
+							break;
+							case "3":
+								$get_constraint = substr($word, -2);
+								$constraint = 'IS';
+							break;
+							default:
+								trigger_error('Game not found!', E_USER_ERROR);
+							break;
+						}
+						if ( $get_constraint == $constraint )
+						{
+							$countconstraints++;
+							array_push($this->words_test, $word);
+						}
+					}
+						if ( $this->userlang == 'es' )
+					{
+						switch ( $this->choose_constraint )
+						{
+							case "1":
+								$get_constraint = substr($word, -2);
+								$constraint_1 = 'A';
+								$constraint_2 = 'AS';
+							break;
+							case "2":
+								$get_constraint = substr($word, -2);
+								$constraint_1 = 'O';
+								$constraint_2 = 'OS';
+							break;
+							case "3":
+								$get_constraint = substr($word, -2);
+								$constraint_1 = 'AS';
+								$constraint_2 = 'OS';
+							break;
+							default:
+								trigger_error('Game not found!', E_USER_ERROR);
+							break;
+						}
+						if ( $get_constraint == $constraint_1 || $get_constraint == $constraint_2 || substr($get_constraint,-1)==$constraint_1)
+						{
+							$countconstraints++;
+							array_push($this->words_test, $word);
+						}
+					}
+					//IL FAUT PRECISER LES CONTRAINTES POUR ALLEMAND
+						if ( $this->userlang == 'de' )
 					{
 						switch ( $this->choose_constraint )
 						{
@@ -578,6 +909,19 @@ class grid
 			{
 				$wpondareted = substr($wpondareted, 0, 14);
 			}
+			if ( $this->userlang == 'fr' )
+			{
+				$wpondareted = substr($wpondareted, 0, 14);
+			}
+			//IF FAUT CALCULER POUR L'ALLEMAND
+			if ( $this->userlang == 'de' )
+			{
+				$wpondareted = substr($wpondareted, 0, 14);
+			}
+			if ( $this->userlang == 'es' )
+			{
+				$wpondareted = substr($wpondareted, 0, 14);
+			}
 			$wpondareted .= $this->constraint;
 			$wpondareted = str_shuffle($wpondareted);
 		}
@@ -635,7 +979,9 @@ class grid
             while ( ($row = $result->fetch_assoc()) )
             {
 				// changer les lettres accentués en lettre sans accent
+				
 				$word = $this->cleartext($row['up_form']);
+					
 
 				// ne conserver que les mots purement alphabétique (mysql retourne les mots avec accents, espace, etc.)
 				if ( preg_match('#^[A-Z]+$#', $word) )

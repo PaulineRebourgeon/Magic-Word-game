@@ -148,14 +148,12 @@ $(document).ready(function () {
 						type: 'GET',
 						url: dico,
 						success: function(data) {
-							if( data.match(/((<h3><span class="mw-headline" .*)>[\s\S]*?(<p>[\s\S]*?<\/p>)[\s\S]*?(<ol>[\s\S]*?<\/ol>))/) ){
-								page = RegExp.$4;
-
-								var div = $('<div id="worddef-' + id + '" />');
-								div.addClass('wordbox-definition');
-								div.html(page);
-								div.appendTo('div#worddef');
-							}
+							page = wordboxLang(lang,data);
+							var div = $('<div id="worddef-' + id + '" />');
+							div.addClass('wordbox-definition');
+							div.html(page);
+							div.appendTo('div#worddef');
+						
 						}
 					})
 					return $('div#worddef-' + id).html();
@@ -181,6 +179,21 @@ $(document).ready(function () {
     });
 
 });
+
+function wordboxLang(lang,html){
+	var page = "";
+	if(lang=="fr") {
+		if(html.match(/<span[\s\S]+?id="fr"[\s\S]*?(<ol>[\s\S]*?<\/ol>)/)) {
+			page = RegExp.$1;
+		}
+	} else {
+		if(html.match(/(<ol>[\s\S]*?<\/ol>)/)){
+			page = RegExp.$1;
+		}
+	}
+	
+	return page;
+}
 
 </script>
 </div>

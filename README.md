@@ -1,7 +1,9 @@
 Magic Word
 ================
 
-Magic Word was created as part of the GAMER work package in the Innovalangues project at Stendhal University in Grenoble, France. Innovalangues is the only language oriented project within IDEFI (Initiatives in Excellence for Innovative Education) and will run from 2012 to 2018. This first version of Magic Word was designed and developed by two students of linguistics in the Language Industries master’s program, Pauline Rebourgeon and Christine Lutian, for their end-of-study professional project. Initially conceived for learners of English or Italian, the Innovalanges project hopes to adapt Magic Word for additional languages.
+Magic Word was created as part of the GAMER work package in the **[Innovalangues project](http://innovalangues.fr/)** at the Stendhal University in Grenoble, France. Innovalangues is a language learning centered IDEFI project (Initiatives in Excellence for Innovative Education) and will run from 2012 to 2018.
+
+Based on a request by Innovalangue, this first version of Magic Word was designed and developed by two students of linguistics in the Language Industries master’s program, Pauline Rebourgeon and Christine Lutian, for their end-of-study professional project. Initially conceived for learners of English or Italian, the Innovalanges project hopes to adapt Magic Word for additional languages.
 
 Rules
 -------
@@ -20,4 +22,22 @@ Requirements
 
 Installation
 -------------
-TODO
+* rename ./sys/config.db.sample.php to ./sys/config.db.php and include YOUR db connect info
+* run initializeDB.php to verify your config works and to create the necessary tables
+* the dB won't have a table for the dictionnaries, all those are included in the language files pointed to by "load_dictionnary.php"). To use them :
+  * Select the dictionnaries you want in 'load_dictionnary.php' by un/commenting them ;
+  * comment the "include_once('load_dictionary.php');" if you don't want to load the dictionaries… (it might be safer to connect to the server and use the MySQL cli)
+  * The content of the LANGUAGE RESOURCES can be erased from the server after that operation.
+  * It's also possible to manually run the sql files on the server.
+
+## Contributors
+### [First functional version of the project](https://github.com/PaulineRebourgeon/Magic-Word-game), developped for Innovalangues solely by :
+* Pauline Rebourgeon
+* Christine Lutian
+
+### Later versions
+* Maryam Nejat
+* David Graceffa
+ 
+### Other implementations
+The *Università di Bologna* has proposed another version of the game more oriented towards finding particular words in the grid. It contains an algorithm to create grids containing certain words, it would allow to devise some pretty neat functionalities in terms of personalization (especially for language learning). [Do not hesitate to have a look at their instance of the game](https://github.com/giacomo-mambelli/magicword)

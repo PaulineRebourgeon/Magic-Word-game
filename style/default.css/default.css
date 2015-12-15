@@ -930,6 +930,40 @@ div.exists {
 	float: left;
 }
 
+span.existingWord{
+	padding:3px;
+}
+
+div.addWButton{
+	float:left;
+	margin:0;
+	padding:0;
+	width:1em;
+	height:1em;
+	background-size:contain;
+	background-image: url(./imgs/add_word.png);
+	position:relative;
+	right:-1px;
+	visibility: hidden;
+	cursor:pointer;
+}
+div.exists:hover>div.addWButton{
+	visibility: visible;
+}
+
+div.addWButton:hover{
+	background-image: url(./imgs/add_word_hover.png);
+}
+
+div.addWButton:hover + span.existingWord{
+	background-color:#F09300;
+	color:white;
+	border-style: dotted dotted dotted none;
+	border-width:1px;
+	border-color:#005497;
+	padding:2px;
+}
+
 a.resultdef-link {
 	background-color: white;
 	color: #005497;
